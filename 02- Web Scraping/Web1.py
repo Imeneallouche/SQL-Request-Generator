@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 import requests
+import pandas as pd
+import numpy as np
 
 # Scraped Website: https://bytescout.com/blog/20-important-sql-queries.html
 
@@ -18,9 +20,10 @@ QUIZES_NUMBER = 70
 
 
 HUMAN_REQUEST_LIST = []
-SQL_REQUEST_LIST = []
+SQL_REQUEST_LIST = ['loading', 'not', 'yet', 'finished']
 
 
+# CREATING THE HUMAN REQUESTS
 for index, question in zip(range(0, QUIZES_NUMBER+1), QUESTIONS):
     if (question.string == None):
         question_to_append = question.find('a').string.strip()
@@ -29,7 +32,14 @@ for index, question in zip(range(0, QUIZES_NUMBER+1), QUESTIONS):
 
     HUMAN_REQUEST_LIST.append(question_to_append)
 
-print("\n\n starting here")
 
-for index, answer in zip(range(0, QUIZES_NUMBER+1), ANSWERS):
-    print("\n\nnumber:  ", index, answer)
+# CREATING THE SQL REQUESTS
+# for index, answer in zip(range(0, QUIZES_NUMBER+1), ANSWERS):
+
+
+# CREATING THE EXCEL FILE
+data = [HUMAN_REQUEST_LIST, SQL_REQUEST_LIST]
+df = pd.DataFrame(*data)
+
+# Exporting data into Excel
+df.to_csv('scraped_web_1.csv')
