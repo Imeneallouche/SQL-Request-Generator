@@ -38,8 +38,10 @@ for index, question in zip(range(0, QUIZES_NUMBER+1), QUESTIONS):
 
 
 # CREATING THE EXCEL FILE
+COLNAMES = ['Natural Human Language Request', 'Equivalent SQl Request']
 data = [HUMAN_REQUEST_LIST, SQL_REQUEST_LIST]
-df = pd.DataFrame(*data)
+df = pd.DataFrame(data).T
 
 # Exporting data into Excel
-df.to_csv('scraped_web_1.csv')
+df.to_csv('scraped_web_1.csv', encoding='utf-8-sig',
+          index=False, header=COLNAMES)
